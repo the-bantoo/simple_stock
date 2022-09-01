@@ -1,0 +1,237 @@
+{
+ "actions": [],
+ "allow_events_in_timeline": 1,
+ "allow_rename": 1,
+ "autoname": "format:SRET-{YY}{MM}{DD}-{####} - {receiving_warehouse}",
+ "creation": "2022-08-03 12:45:00.697851",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "receiving_warehouse",
+  "column_break_3",
+  "t_date",
+  "edit_date",
+  "employee_details_section",
+  "employee",
+  "items_section",
+  "items",
+  "stock_value_details_section",
+  "total_qty",
+  "column_break_20",
+  "grand_total",
+  "last_transactions_section",
+  "reason_for_return",
+  "remarks",
+  "column_break_15",
+  "stock_entry_reference",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "receiving_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Receiving Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_date",
+   "fieldtype": "Check",
+   "label": "Edit Date",
+   "no_copy": 1
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee"
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "items_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 4,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Stock Return Items",
+   "reqd": 1
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "stock_value_details_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Value"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "last_transactions_section",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "reason_for_return",
+   "fieldtype": "Link",
+   "label": "Reason for Return",
+   "options": "Return Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval: doc.is_purchase==0;",
+   "fieldname": "stock_entry_reference",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Return",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "t_date",
+   "fieldtype": "Datetime",
+   "label": "Date and Time",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Returned By",
+   "options": "User",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-26 18:03:31.494126",
+ "modified_by": "Administrator",
+ "module": "Simple Stock",
+ "name": "Stock Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Purchase User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Maintenance User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accounts User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Manufacturing User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Item Manager",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

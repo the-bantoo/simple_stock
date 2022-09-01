@@ -1,0 +1,191 @@
+{
+ "actions": [],
+ "allow_events_in_timeline": 1,
+ "allow_rename": 1,
+ "creation": "2022-07-20 16:15:25.366861",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "is_purchase",
+  "column_break_11",
+  "edit_date",
+  "data_9",
+  "section_break_3",
+  "supplier",
+  "column_break_5",
+  "supplier_invoice",
+  "section_break_10",
+  "items_section",
+  "items_table",
+  "last_transactions_section",
+  "last_transactions"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "Is_a_Purchase",
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break",
+   "label": "Supplier"
+  },
+  {
+   "fieldname": "supplier_invoice",
+   "fieldtype": "Data",
+   "label": "Supplier Invoice",
+   "mandatory_depends_on": "Is_a_Purchase"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "columns": 4,
+   "fieldname": "items_table",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Stock In Items"
+  },
+  {
+   "default": "Now",
+   "fieldname": "data_9",
+   "fieldtype": "Datetime",
+   "label": "Date and Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_transactions_section",
+   "fieldtype": "Section Break",
+   "label": "Last Transactions"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "mandatory_depends_on": "Is_a_Purchase",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "last_transactions",
+   "fieldtype": "Table",
+   "label": "Last Transactions",
+   "options": "Transactions Stock In"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_date",
+   "fieldtype": "Check",
+   "label": "Edit Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_purchase",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is a Purchase"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-07-27 12:45:18.593344",
+ "modified_by": "Administrator",
+ "module": "Simple Stock",
+ "name": "Stock In Transaction",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Purchase User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Maintenance User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accounts User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Manufacturing User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Item Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "role": "All",
+   "select": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
