@@ -103,6 +103,13 @@ app_license = "MIT"
 #	}
 # }
 
+doc_events = {
+	#"Stock In": {
+	#	"on_update": "simple_stock.app.receive_stock",
+	#	"on_cancel": "simple_stock.app.delete_stock_entry"
+	#}
+}
+
 # Scheduled Tasks
 # ---------------
 

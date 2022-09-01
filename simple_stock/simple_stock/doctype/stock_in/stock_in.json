@@ -1,0 +1,311 @@
+{
+ "actions": [],
+ "allow_events_in_timeline": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "beta": 1,
+ "creation": "2022-07-28 08:47:38.444549",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "receiving_warehouse",
+  "is_purchase",
+  "column_break_11",
+  "t_date",
+  "edit_date",
+  "section_break_3",
+  "supplier",
+  "column_break_5",
+  "supplier_invoice",
+  "section_break_10",
+  "currency",
+  "column_break_13",
+  "conversion_rate",
+  "items_section",
+  "items",
+  "incoming_stock_value_section",
+  "total_qty",
+  "column_break_22",
+  "taxes",
+  "grand_total",
+  "last_transactions_section",
+  "remarks",
+  "naming_series",
+  "column_break_15",
+  "purchase_invoice",
+  "stock_entry_reference",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "receiving_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Receiving Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_purchase",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is a Purchase"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_date",
+   "fieldtype": "Check",
+   "label": "Edit Date"
+  },
+  {
+   "depends_on": "eval:doc.receiving_warehouse && doc.is_purchase=='1';",
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break",
+   "label": "Supplier"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "mandatory_depends_on": "is_purchase",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_invoice",
+   "fieldtype": "Data",
+   "label": "Supplier Invoice"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.receiving_warehouse && doc.is_purchase=='1';",
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break",
+   "label": "Currency"
+  },
+  {
+   "fetch_from": "company.default_currency",
+   "fetch_if_empty": 1,
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "no_copy": 1,
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "columns": 4,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Stock In Items",
+   "reqd": 1
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "incoming_stock_value_section",
+   "fieldtype": "Section Break",
+   "label": "Incoming Stock Value"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "For taxes not included in price and other charges like transport",
+   "fieldname": "taxes",
+   "fieldtype": "Currency",
+   "label": "Taxes & Charges",
+   "options": "currency"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Grand Total",
+   "no_copy": 1,
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "depends_on": "receiving_warehouse",
+   "fieldname": "last_transactions_section",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "no_copy": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "naming series",
+   "no_copy": 1,
+   "options": "IN-.YY.MM.DD.-.####. - .supplier\nIN-.YY.MM.DD.-.####",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.is_purchase==1;",
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "no_copy": 1,
+   "options": "Purchase Invoice",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.is_purchase==0;",
+   "fieldname": "stock_entry_reference",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock In",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "t_date",
+   "fieldtype": "Datetime",
+   "label": "Date and Time",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "description": "Per single unit of the company currency",
+   "fieldname": "conversion_rate",
+   "fieldtype": "Currency",
+   "label": "Exchange Rate",
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-22 20:09:32.626893",
+ "modified_by": "Administrator",
+ "module": "Simple Stock",
+ "name": "Stock In",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Purchase User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Maintenance User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accounts User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Manufacturing User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Item Manager",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

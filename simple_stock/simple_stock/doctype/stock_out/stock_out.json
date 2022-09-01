@@ -1,0 +1,300 @@
+{
+ "actions": [],
+ "allow_events_in_timeline": 1,
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:OUT-{YY}{MM}{DD}-{####} - {transacting_warehouse}",
+ "creation": "2022-07-28 08:51:55.953305",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "transacting_warehouse",
+  "is_transfer",
+  "column_break_4",
+  "t_date",
+  "edit_date",
+  "usage_details_section",
+  "employee",
+  "col9",
+  "receiving_wh",
+  "col13",
+  "spray_program",
+  "user_crops",
+  "column_break_9",
+  "application",
+  "items_section",
+  "items",
+  "valuation_section",
+  "total_qty",
+  "column_break_19",
+  "grand_total",
+  "more_information_section",
+  "remarks",
+  "column_break_17",
+  "stock_entry_reference",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "transacting_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Transacting Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_transfer",
+   "fieldtype": "Check",
+   "label": "Transfer"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "transacting_warehouse",
+   "fieldname": "usage_details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Requesting Employee",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_transfer == 1;",
+   "fieldname": "receiving_wh",
+   "fieldtype": "Link",
+   "label": "Receiving Warehouse",
+   "mandatory_depends_on": "eval:doc.is_transfer == 1;",
+   "options": "Warehouse"
+  },
+  {
+   "depends_on": "eval:doc.is_transfer == 0 && doc.transacting_warehouse;",
+   "fieldname": "col13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "spray_program",
+   "fieldtype": "Link",
+   "label": "Spray Program",
+   "mandatory_depends_on": "eval:doc.is_transfer == 0;",
+   "options": "Spray Program"
+  },
+  {
+   "fetch_from": "spray_program.sp_crops",
+   "fieldname": "user_crops",
+   "fieldtype": "Link MultiSelect",
+   "label": "Crops",
+   "mandatory_depends_on": "eval:doc.is_transfer == 0;",
+   "options": "Crop"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "application",
+   "fieldtype": "Link",
+   "label": "Area of Application",
+   "mandatory_depends_on": "eval:doc.is_transfer == 0;",
+   "options": "Area of Application"
+  },
+  {
+   "depends_on": "transacting_warehouse",
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Stock Out Items",
+   "reqd": 1
+  },
+  {
+   "depends_on": "transacting_warehouse",
+   "fieldname": "valuation_section",
+   "fieldtype": "Section Break",
+   "label": "Valuation"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "depends_on": "transacting_warehouse",
+   "fieldname": "more_information_section",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Out",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_date",
+   "fieldtype": "Check",
+   "label": "Edit Date"
+  },
+  {
+   "default": "Now",
+   "fieldname": "t_date",
+   "fieldtype": "Datetime",
+   "label": "Date and Time",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "stock_entry_reference",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-26 17:21:16.716983",
+ "modified_by": "Administrator",
+ "module": "Simple Stock",
+ "name": "Stock Out",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Stock User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Purchase User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Maintenance User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accounts User",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Manufacturing Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Item Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
