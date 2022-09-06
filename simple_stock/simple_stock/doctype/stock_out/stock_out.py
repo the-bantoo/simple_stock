@@ -70,8 +70,8 @@ class StockOut(Document):
 				"basic_amount": item.line_value,
 				"expense_account": "5111 - Cost of Goods Sold - EF", #get
 				"spray_program": self.spray_program,
-				"user_crops": self.user_crops,
-				"application": self.application,
+				"crops": self.user_crops,
+				"area_of_application": self.application,
 				"employee": self.employee
 			})
 

@@ -34,7 +34,7 @@ class StockReturn(Document):
 				"basic_rate": item.price,
 				"basic_amount": item.line_value,
 				"employee": self.employee,
-				"return_reason": self.reason_for_return,
+				"reason_for_return": self.reason_for_return,
 				"expense_account": "5119 - Stock Adjustment - EF" #get
 			})
 

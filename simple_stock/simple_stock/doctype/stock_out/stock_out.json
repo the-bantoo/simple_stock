@@ -100,10 +100,10 @@
   {
    "fetch_from": "spray_program.sp_crops",
    "fieldname": "user_crops",
-   "fieldtype": "Link MultiSelect",
+   "fieldtype": "Table MultiSelect",
    "label": "Crops",
    "mandatory_depends_on": "eval:doc.is_transfer == 0;",
-   "options": "Crop"
+   "options": "Crops"
   },
   {
    "fieldname": "column_break_9",
@@ -202,10 +202,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-26 17:21:16.716983",
+ "modified": "2022-09-05 19:05:14.534314",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Stock Out",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -296,5 +297,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

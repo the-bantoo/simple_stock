@@ -47,18 +47,19 @@
    "bold": 1,
    "description": "The selected crops will be automatically be pulled into the Stock Out transaction for convenience",
    "fieldname": "sp_crops",
-   "fieldtype": "Link MultiSelect",
+   "fieldtype": "Table MultiSelect",
    "label": "Crops",
-   "options": "Crop"
+   "options": "Crops"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-23 17:52:14.642873",
+ "modified": "2022-09-05 19:07:08.187652",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Spray Program",
  "name_case": "Title Case",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -77,5 +78,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }
