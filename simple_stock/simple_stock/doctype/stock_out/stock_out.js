@@ -6,7 +6,7 @@ let company = frappe.defaults.get_user_default("Company") || frappe.defaults.get
 
 frappe.ui.form.on('Stock Out', {
     refresh: function(frm) {
-        
+
     },
     onload(frm) {
 
@@ -56,13 +56,15 @@ frappe.ui.form.on('Stock Out', {
                     async: true
                 },
                 callback: (rs) => {
-                    let r = rs.message;
-                    
-                    // console.log(r.sp_crops);
-                    
-                    frm.doc.user_crops = r.sp_crops;
-                    frm.refresh_field('user_crops');
-                    
+                    let res = rs.message.sp_crops;
+                    let crops = []
+
+                    for (var index in res) {         
+                        crops.push(res[index]);
+                    }
+
+                    frm.set_value("user_crops", crops);
+                    refresh_field('user_crops');
                 }
             });
         }

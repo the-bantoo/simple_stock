@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Purchase Receipt",
+  "enabled": 1,
+  "modified": "2022-09-21 19:48:24.568847",
+  "module": "Simple Stock",
+  "name": "Close Purchase Receipt On Submit",
+  "script": "frappe.ui.form.on('Purchase Receipt', {\n    \n\ton_submit(frm) {\n\t\tfrappe.ui.form.is_saving = true;\n    \tfrappe.call({\n    \t\tmethod:\"erpnext.stock.doctype.purchase_receipt.purchase_receipt.update_purchase_receipt_status\",\n    \t\targs: {docname: frm.doc.name, status: \"Closed\"},\n    \t\tcallback: function(r){\n    \t\t\tif(!r.exc)\n    \t\t\t\tcur_frm.reload_doc();\n    \t\t},\n    \t\talways: function(){\n    \t\t\tfrappe.ui.form.is_saving = false;\n    \t\t}\n    \t});\n\t}\n});",
+  "view": "Form"
+ }
+]

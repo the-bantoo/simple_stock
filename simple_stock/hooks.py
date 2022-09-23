@@ -193,3 +193,29 @@ user_data_fields = [
 # Recommended only for DocTypes which have limited documents with untranslated names
 # For example: Role, Gender, etc.
 # translated_search_doctypes = []
+
+
+fixtures = [
+	"Client Script",
+	{
+		"dt": "Custom Field",
+		"filters": [
+			[
+				"fieldname", "in", [
+					"supplier_invoice",
+					"batch"
+				]
+			]
+		]
+	},
+	{
+		"dt": "Report",
+			"filters": [
+				[
+					"ref_doctype", "in", [
+						""
+					]
+				]
+			]
+	}
+]

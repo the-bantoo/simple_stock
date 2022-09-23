@@ -98,14 +98,6 @@
    "options": "Spray Program"
   },
   {
-   "fetch_from": "spray_program.sp_crops",
-   "fieldname": "user_crops",
-   "fieldtype": "Table MultiSelect",
-   "label": "Crops",
-   "mandatory_depends_on": "eval:doc.is_transfer == 0;",
-   "options": "Crops"
-  },
-  {
    "fieldname": "column_break_9",
    "fieldtype": "Column Break"
   },
@@ -197,12 +189,19 @@
    "no_copy": 1,
    "options": "Stock Entry",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.is_transfer == 0;",
+   "fieldname": "user_crops",
+   "fieldtype": "Table MultiSelect",
+   "label": "Crops",
+   "options": "Crops"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-05 19:05:14.534314",
+ "modified": "2022-09-06 08:49:50.364530",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Stock Out",

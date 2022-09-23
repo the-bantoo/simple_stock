@@ -50,6 +50,11 @@ class StockOut(Document):
 	def make_stock_entry_issue(self):
 		#convert stock_in items to stock_entry items
 
+		crops = ""
+
+		for crop in self.user_crops:
+			crops += crop.crop + ", "
+
 		items = []
 		
 		for item in self.items:
@@ -70,7 +75,7 @@ class StockOut(Document):
 				"basic_amount": item.line_value,
 				"expense_account": "5111 - Cost of Goods Sold - EF", #get
 				"spray_program": self.spray_program,
-				"crops": self.user_crops,
+				"crops": crops,
 				"area_of_application": self.application,
 				"employee": self.employee
 			})
@@ -89,7 +94,7 @@ class StockOut(Document):
 			"docstatus": 1
 		})
 		inserted = se.insert()
-		#inserted.submit()
+		inserted.submit()
 
 		self.db_set("stock_entry_reference", inserted.name)
 		self.notify_update()
