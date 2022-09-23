@@ -10,6 +10,22 @@ frappe.ui.form.on('Stock Issue', {
 	setup: function(frm) {
 
 		frm.doc.stock_entry_type = "Material Issue";
+
+		frm.set_query("from_warehouse", function() {
+            return {
+                "filters": {
+                    "is_group": 0
+                }
+            };
+        });
+
+		frm.set_query("to_warehouse", function() {
+            return {
+                "filters": {
+                    "is_group": 0
+                }
+            };
+        });
 		
 		frm.set_indicator_formatter('item_code', function(doc) {
 			if (!doc.s_warehouse) {
@@ -1071,12 +1087,6 @@ erpnext.stock.StockEntry = class StockEntry extends erpnext.stock.StockControlle
 		if(doc.purpose == "Material Receipt") {
 			this.frm.set_value("from_bom", 0);
 		}
-
-		// Addition costs based on purpose
-		this.frm.toggle_display(["additional_costs", "total_additional_costs", "additional_costs_section"],
-			doc.purpose!='Material Issue');
-
-		this.frm.fields_dict["items"].grid.set_column_disp("additional_cost", doc.purpose!='Material Issue');
 	}
 
 	supplier(doc) {

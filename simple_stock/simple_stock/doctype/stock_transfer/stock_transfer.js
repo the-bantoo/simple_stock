@@ -6,10 +6,10 @@ frappe.provide("erpnext.accounts.dimensions");
 
 {% include 'erpnext/stock/landed_taxes_and_charges_common.js' %};
 
-frappe.ui.form.on('Stock Return', {
+frappe.ui.form.on('Stock Transfer', {
 	setup: function(frm) {
 
-		frm.doc.stock_entry_type = "Material Receipt";
+		frm.doc.stock_entry_type = "Material Transfer";
 
 		frm.set_query("from_warehouse", function() {
             return {
@@ -133,6 +133,8 @@ frappe.ui.form.on('Stock Return', {
 		});
 		attach_bom_items(frm.doc.bom_no);
 
+		console.log(frm.doc.stock_entry_type);
+
 	},
 
 	setup_quality_inspection: function(frm) {
@@ -225,7 +227,7 @@ frappe.ui.form.on('Stock Return', {
 						frm: frm,
 						child_docname: "items",
 						warehouse_field: "s_warehouse",
-						child_doctype: "Stock Return Detail",
+						child_doctype: "Stock Transfer Detail",
 						original_item_field: "original_item",
 						condition: (d) => {
 							if (d.s_warehouse && d.allow_alternative_item) {return true;}
@@ -252,7 +254,7 @@ frappe.ui.form.on('Stock Return', {
 						'docstatus': ['!=', 2]
 					};
 
-					frappe.set_route('List', 'Stock Return');
+					frappe.set_route('List', 'Stock Transfer');
 				}, __("View"));
 			}
 		}
@@ -341,7 +343,7 @@ frappe.ui.form.on('Stock Return', {
 		}
 
 		if(frm.doc.docstatus==1 && frm.doc.purpose == "Material Receipt" && frm.get_sum('items', 			'sample_quantity')) {
-			frm.add_custom_button(__('Create Sample Retention Stock Return'), function () {
+			frm.add_custom_button(__('Create Sample Retention Stock Transfer'), function () {
 				frm.trigger("make_retention_stock_entry");
 			});
 		}
@@ -360,6 +362,7 @@ frappe.ui.form.on('Stock Return', {
 		frm.remove_custom_button('Bill of Materials', "Get Items From");
 		frm.events.show_bom_custom_button(frm);
 		frm.trigger('add_to_transit');
+		console.log(frm.doc.stock_entry_type);
 	},
 
 	purpose: function(frm) {
@@ -427,7 +430,7 @@ frappe.ui.form.on('Stock Return', {
 					frappe.set_route("Form", doc.doctype, doc.name);
 				}
 				else {
-					frappe.msgprint(__("Retention Stock Return already created or Sample Quantity not provided"));
+					frappe.msgprint(__("Retention Stock Transfer already created or Sample Quantity not provided"));
 				}
 			}
 		});
@@ -558,7 +561,7 @@ frappe.ui.form.on('Stock Return', {
 					} else {
 						erpnext.utils.remove_empty_first_row(frm, "items");
 						$.each(r.message, function(i, item) {
-							let d = frappe.model.add_child(cur_frm.doc, "Stock Return Detail", "items");
+							let d = frappe.model.add_child(cur_frm.doc, "Stock Transfer Detail", "items");
 							d.item_code = item.item_code;
 							d.item_name = item.item_name;
 							d.item_group = item.item_group;
@@ -662,7 +665,7 @@ frappe.ui.form.on('Stock Return', {
 	},
 });
 
-frappe.ui.form.on('Stock Return Detail', {
+frappe.ui.form.on('Stock Transfer Detail', {
 	qty: function(frm, cdt, cdn) {
 		frm.events.set_serial_no(frm, cdt, cdn, () => {
 			frm.events.set_basic_rate(frm, cdt, cdn);
@@ -928,7 +931,7 @@ erpnext.stock.StockEntry = class StockEntry extends erpnext.stock.StockControlle
 	}
 
 	clean_up() {
-		// Clear Work Order record from locals, because it is updated via Stock Return
+		// Clear Work Order record from locals, because it is updated via Stock Transfer
 		if(this.frm.doc.work_order &&
 			in_list(["Manufacture", "Material Transfer for Manufacture", "Material Consumption for Manufacture"],
 				this.frm.doc.purpose)) {
@@ -1060,12 +1063,6 @@ erpnext.stock.StockEntry = class StockEntry extends erpnext.stock.StockControlle
 			this.frm.set_value("from_bom", 0);
 		}
 
-		// Addition costs based on purpose	
-		/** this.frm.toggle_display(["additional_costs", "total_additional_costs", "additional_costs_section"],
-			doc.purpose!='Material Issue');
-
-		this.frm.fields_dict["items"].grid.set_column_disp("additional_cost", doc.purpose!='Material Issue');
-		*/
 	}
 
 	supplier(doc) {

@@ -1,20 +1,20 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "format:SRET-{YY}{MM}{DD}-{####} - {to_warehouse}",
- "creation": "2022-09-20 15:26:25.203888",
+ "autoname": "format:TRANS-{YY}{MM}{DD}-{####} - {from_warehouse}",
+ "creation": "2022-09-23 15:12:28.173556",
  "doctype": "DocType",
  "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [
   "items_section",
-  "from_warehouse",
-  "to_warehouse",
   "stock_entry_type",
   "outgoing_stock_entry",
   "purpose",
-  "target_warehouse_address",
-  "target_address_display",
+  "from_warehouse",
+  "to_warehouse",
+  "source_warehouse_address",
+  "source_address_display",
   "add_to_transit",
   "work_order",
   "purchase_order",
@@ -38,19 +38,19 @@
   "use_multi_level_bom",
   "get_items",
   "section_break_12",
-  "source_warehouse_address",
-  "source_address_display",
+  "target_warehouse_address",
+  "target_address_display",
   "cb0",
-  "section_break_35",
-  "returned_by",
+  "section_break_36",
+  "requesting_employee",
   "sb0",
   "scan_barcode",
   "items",
   "get_stock_and_rate",
   "section_break_19",
-  "total_outgoing_value",
-  "column_break_22",
   "total_incoming_value",
+  "column_break_22",
+  "total_outgoing_value",
   "value_difference",
   "additional_costs_section",
   "additional_costs",
@@ -65,9 +65,7 @@
   "dimension_col_break",
   "printing_settings",
   "select_print_heading",
-  "print_settings_col_break",
   "more_info",
-  "reason_for_return",
   "remarks",
   "is_opening",
   "letter_head",
@@ -86,29 +84,12 @@
    "oldfieldtype": "Section Break"
   },
   {
-   "allow_bulk_edit": 1,
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "oldfieldname": "mtn_details",
-   "oldfieldtype": "Table",
-   "options": "Stock Return Detail",
-   "reqd": 1
-  },
-  {
-   "fieldname": "remarks",
-   "fieldtype": "Text",
-   "label": "Remarks",
-   "no_copy": 1,
-   "oldfieldname": "remarks",
-   "oldfieldtype": "Text",
-   "print_hide": 1
-  },
-  {
-   "default": "Material Receipt",
+   "default": "Material Transfer",
    "fieldname": "stock_entry_type",
    "fieldtype": "Link",
    "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Stock Entry Type",
    "options": "Stock Entry Type",
    "print_hide": 1,
@@ -124,6 +105,7 @@
    "read_only": 1
   },
   {
+   "bold": 1,
    "fetch_from": "stock_entry_type.purpose",
    "fieldname": "purpose",
    "fieldtype": "Select",
@@ -135,31 +117,32 @@
    "read_only": 1
   },
   {
-   "fieldname": "to_warehouse",
+   "fieldname": "from_warehouse",
    "fieldtype": "Link",
-   "hidden": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Target Warehouse",
+   "label": "Source Warehouse",
    "no_copy": 1,
-   "oldfieldname": "to_warehouse",
+   "oldfieldname": "from_warehouse",
    "oldfieldtype": "Link",
    "options": "Warehouse",
-   "print_hide": 1
+   "print_hide": 1,
+   "remember_last_selected_value": 1,
+   "reqd": 1
   },
   {
-   "depends_on": "to_warehouse",
-   "fieldname": "target_warehouse_address",
+   "depends_on": "from_warehouse",
+   "fieldname": "source_warehouse_address",
    "fieldtype": "Link",
    "hidden": 1,
-   "label": "Target Warehouse Address",
+   "label": "Warehouse Address",
    "options": "Address"
   },
   {
-   "fieldname": "target_address_display",
+   "fieldname": "source_address_display",
    "fieldtype": "Small Text",
    "hidden": 1,
-   "label": "Target Warehouse Address",
+   "label": "Warehouse Address",
    "read_only": 1
   },
   {
@@ -189,7 +172,6 @@
    "depends_on": "eval:doc.purpose==\"Send to Subcontractor\"",
    "fieldname": "purchase_order",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Purchase Order",
    "options": "Purchase Order"
   },
@@ -205,7 +187,6 @@
    "depends_on": "eval:doc.purpose==\"Sales Return\"",
    "fieldname": "delivery_note_no",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Delivery Note No",
    "no_copy": 1,
    "oldfieldname": "delivery_note_no",
@@ -218,7 +199,6 @@
    "depends_on": "eval:doc.purpose==\"Sales Return\"",
    "fieldname": "sales_invoice_no",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Sales Invoice No",
    "no_copy": 1,
    "options": "Sales Invoice",
@@ -236,7 +216,6 @@
    "depends_on": "eval:doc.purpose==\"Purchase Return\"",
    "fieldname": "purchase_receipt_no",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Purchase Receipt No",
    "no_copy": 1,
    "oldfieldname": "purchase_receipt_no",
@@ -369,36 +348,51 @@
    "hidden": 1
   },
   {
-   "description": "Sets 'Source Warehouse' in each row of the items table.",
-   "fieldname": "from_warehouse",
+   "depends_on": "from_warehouse",
+   "fieldname": "to_warehouse",
    "fieldtype": "Link",
-   "label": "Warehouse",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Destination Warehouse",
    "no_copy": 1,
-   "oldfieldname": "from_warehouse",
+   "oldfieldname": "to_warehouse",
    "oldfieldtype": "Link",
    "options": "Warehouse",
    "print_hide": 1,
    "reqd": 1
   },
   {
-   "depends_on": "from_warehouse",
-   "fieldname": "source_warehouse_address",
+   "depends_on": "to_warehouse",
+   "fieldname": "target_warehouse_address",
    "fieldtype": "Link",
    "hidden": 1,
-   "label": "Source Warehouse Address",
+   "label": "Warehouse Address",
    "options": "Address"
   },
   {
-   "fieldname": "source_address_display",
+   "fieldname": "target_address_display",
    "fieldtype": "Small Text",
    "hidden": 1,
-   "label": "Source Warehouse Address",
+   "label": "Warehouse Address",
    "read_only": 1
   },
   {
    "fieldname": "cb0",
    "fieldtype": "Column Break",
    "hidden": 1
+  },
+  {
+   "fieldname": "section_break_36",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "requesting_employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Requesting Employee",
+   "options": "User",
+   "reqd": 1
   },
   {
    "fieldname": "sb0",
@@ -410,6 +404,16 @@
    "fieldtype": "Data",
    "label": "Scan Barcode",
    "options": "Barcode"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "oldfieldname": "mtn_details",
+   "oldfieldtype": "Table",
+   "options": "Stock Transfer Detail",
+   "reqd": 1
   },
   {
    "fieldname": "get_stock_and_rate",
@@ -425,10 +429,10 @@
    "print_hide": 1
   },
   {
-   "fieldname": "total_outgoing_value",
+   "fieldname": "total_incoming_value",
    "fieldtype": "Currency",
    "hidden": 1,
-   "label": "Total Outgoing Value (Consumption)",
+   "label": "Total Incoming Value (Receipt)",
    "options": "Company:company:default_currency",
    "print_hide": 1,
    "read_only": 1
@@ -438,9 +442,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "total_incoming_value",
+   "fieldname": "total_outgoing_value",
    "fieldtype": "Currency",
-   "label": "Total Incoming Value (Receipt)",
+   "label": "Total Outgoing Value (Consumption)",
    "options": "Company:company:default_currency",
    "print_hide": 1,
    "read_only": 1
@@ -456,6 +460,7 @@
   },
   {
    "collapsible": 1,
+   "collapsible_depends_on": "total_additional_costs",
    "fieldname": "additional_costs_section",
    "fieldtype": "Section Break",
    "hidden": 1,
@@ -464,14 +469,12 @@
   {
    "fieldname": "additional_costs",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Additional Costs",
    "options": "Landed Cost Taxes and Charges"
   },
   {
    "fieldname": "total_additional_costs",
    "fieldtype": "Currency",
-   "hidden": 1,
    "label": "Total Additional Costs",
    "options": "Company:company:default_currency",
    "print_hide_if_no_value": 1,
@@ -482,7 +485,6 @@
    "depends_on": "eval:doc.purpose === \"Send to Subcontractor\"",
    "fieldname": "contact_section",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Supplier Details"
   },
   {
@@ -551,32 +553,40 @@
    "allow_on_submit": 1,
    "fieldname": "select_print_heading",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Print Heading",
    "oldfieldname": "select_print_heading",
    "oldfieldtype": "Link",
    "options": "Print Heading"
   },
   {
-   "fieldname": "print_settings_col_break",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "letter_head",
-   "fieldtype": "Link",
-   "label": "Letter Head",
-   "options": "Letter Head"
-  },
-  {
+   "collapsible": 1,
    "fieldname": "more_info",
    "fieldtype": "Section Break",
    "label": "More Information",
    "oldfieldtype": "Section Break"
   },
   {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks",
+   "no_copy": 1,
+   "oldfieldname": "remarks",
+   "oldfieldtype": "Text",
+   "print_hide": 1
+  },
+  {
    "fieldname": "is_opening",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Is Opening",
    "options": "No\nYes"
+  },
+  {
+   "fieldname": "letter_head",
+   "fieldtype": "Link",
+   "label": "Letter Head",
+   "options": "Letter Head"
   },
   {
    "fieldname": "col5",
@@ -633,50 +643,34 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Stock Return",
+   "options": "Stock Transfer",
    "print_hide": 1,
    "read_only": 1
   },
   {
-   "fieldname": "section_break_35",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "returned_by",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Returned By",
-   "options": "User",
-   "reqd": 1
-  },
-  {
-   "fieldname": "reason_for_return",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Reason for Return",
-   "options": "Return Reason",
-   "reqd": 1
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Transfer",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "icon": "fa fa-file-text",
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-23 15:44:12.269671",
+ "modified": "2022-09-23 15:46:38.558436",
  "modified_by": "Administrator",
  "module": "Simple Stock",
- "name": "Stock Return",
+ "name": "Stock Transfer",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
    "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "print": 1,
    "read": 1,
@@ -732,11 +726,12 @@
    "write": 1
   }
  ],
- "search_fields": "posting_date, from_warehouse, to_warehouse, purpose, remarks",
+ "search_fields": "posting_date, from_warehouse, purpose, remarks",
  "show_name_in_global_search": 1,
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "to_warehouse",
+ "title_field": "from_warehouse",
  "track_changes": 1
 }
