@@ -137,15 +137,15 @@
   {
    "fieldname": "to_warehouse",
    "fieldtype": "Link",
-   "hidden": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Target Warehouse",
+   "label": "Warehouse",
    "no_copy": 1,
    "oldfieldname": "to_warehouse",
    "oldfieldtype": "Link",
    "options": "Warehouse",
-   "print_hide": 1
+   "print_hide": 1,
+   "reqd": 1
   },
   {
    "depends_on": "to_warehouse",
@@ -372,13 +372,13 @@
    "description": "Sets 'Source Warehouse' in each row of the items table.",
    "fieldname": "from_warehouse",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Warehouse",
    "no_copy": 1,
    "oldfieldname": "from_warehouse",
    "oldfieldtype": "Link",
    "options": "Warehouse",
-   "print_hide": 1,
-   "reqd": 1
+   "print_hide": 1
   },
   {
    "depends_on": "from_warehouse",
@@ -648,7 +648,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Returned By",
-   "options": "User",
+   "options": "User Employee",
    "reqd": 1
   },
   {
@@ -665,7 +665,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-23 15:44:12.269671",
+ "modified": "2022-09-24 16:46:21.332484",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Stock Return",
