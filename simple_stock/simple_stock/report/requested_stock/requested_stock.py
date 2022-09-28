@@ -37,15 +37,23 @@ def get_data(filters):
 	mr = frappe.qb.DocType("Material Request")
 	mr_item = frappe.qb.DocType("Material Request Item")
 	item_reorder = frappe.qb.DocType("Item Reorder")
+	item_default = frappe.qb.DocType("Item Default")
 
 	query = (
 		frappe.qb.from_(mr)
 		.join(mr_item)
 		.on(mr_item.parent == mr.name)
+		.join(item_default)
+		.on(item_default.parent == mr_item.item_code)
+		.join(item_reorder)
+		.on(item_reorder.parent == mr_item.item_code)
 		.select(
 			mr.name.as_("material_request"),
 			mr.transaction_date.as_("date"),
 			mr_item.schedule_date.as_("required_date"),
+			item_default.default_supplier.as_("default_supplier"),
+			item_reorder.warehouse_reorder_level.as_("reorder_level"),
+			item_reorder.warehouse_reorder_qty.as_("reorder_qty"),
 			mr_item.item_code.as_("item_code"),
 			Sum(Coalesce(mr_item.actual_qty, 0)).as_("qty"),
 			Coalesce(mr_item.stock_uom, "").as_("uom"),
@@ -186,7 +194,6 @@ def prepare_chart_data(item_data):
 
 	return chart_data
 
-
 def get_columns(filters):
 	columns = [
 		{
@@ -194,10 +201,12 @@ def get_columns(filters):
 			"fieldname": "material_request",
 			"fieldtype": "Link",
 			"options": "Material Request",
-			"width": 170,
+			"width": 70,
 		},
-		{"label": _("Date"), "fieldname": "date", "fieldtype": "Date", "width": 100},
-		{"label": _("Required By"), "fieldname": "required_date", "fieldtype": "Date", "width": 100},
+		{"label": _("Date"), "fieldname": "date", "fieldtype": "Date", "width": 90},
+		{"label": _("Required By"), "fieldname": "required_date", "fieldtype": "Date", "width": 90},
+		{"label": _("Supplier"), "fieldname": "default_supplier", "fieldtype": "Link", "options": "Supplier","width": 110},
+
 	]
 
 	"""
@@ -213,13 +222,13 @@ def get_columns(filters):
 					"fieldname": "item_code",
 					"fieldtype": "Link",
 					"options": "Item",
-					"width": 200,
+					"width": 160,
 				},
 				{
 					"label": _("Unit"),
 					"fieldname": "uom",
 					"fieldtype": "Data",
-					"width": 70,
+					"width": 50,
 				},
 			]
 		)
@@ -236,31 +245,45 @@ def get_columns(filters):
 				"convertible": "qty",
 			},
 			{
+				"label": _("Reorder Level"),
+				"fieldname": "reorder_level",
+				"fieldtype": "Float",
+				"width": 80,
+				"convertible": "qty",
+			},
+			{
+				"label": _("Reorder Qty"),
+				"fieldname": "reorder_qty",
+				"fieldtype": "Float",
+				"width": 80,
+				"convertible": "qty",
+			},
+			{
 				"label": _("Ordered Qty"),
 				"fieldname": "ordered_qty",
 				"fieldtype": "Float",
-				"width": 110,
+				"width": 100,
 				"convertible": "qty",
 			},
 			{
 				"label": _("Received Qty"),
 				"fieldname": "received_qty",
 				"fieldtype": "Float",
-				"width": 120,
+				"width": 110,
 				"convertible": "qty",
 			},
 			{
 				"label": _("Qty to Receive"),
 				"fieldname": "qty_to_receive",
 				"fieldtype": "Float",
-				"width": 120,
+				"width": 110,
 				"convertible": "qty",
 			},
 			{
 				"label": _("Qty to Order"),
 				"fieldname": "qty_to_order",
 				"fieldtype": "Float",
-				"width": 120,
+				"width": 90,
 				"convertible": "qty",
 			}
 		]

@@ -89,44 +89,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Purchasing Reports",
-   "link_count": 3,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Requested Stock",
-   "link_count": 0,
-   "link_to": "Requested Stock",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Itemwise Recommended Reorder Level",
-   "link_count": 0,
-   "link_to": "Itemwise Recommended Reorder Level",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Items To Be Requested",
-   "link_count": 0,
-   "link_to": "Items To Be Requested",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Setup",
    "link_count": 5,
    "onboard": 0,
@@ -325,9 +287,57 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchasing Reports",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Requested Stock",
+   "link_count": 0,
+   "link_to": "Requested Stock",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Itemwise Recommended Reorder Level",
+   "link_count": 0,
+   "link_to": "Itemwise Recommended Reorder Level",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Items To Be Requested",
+   "link_count": 0,
+   "link_to": "Items To Be Requested",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Supplier Price List",
+   "link_count": 0,
+   "link_to": "Supplier Price List",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-09-28 06:53:14.401057",
+ "modified": "2022-09-28 12:33:19.660617",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Warehousing",
