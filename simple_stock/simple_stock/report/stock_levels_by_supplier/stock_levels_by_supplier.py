@@ -49,7 +49,7 @@ def execute(filters: Optional[StockLevelsByLocationSupplier] = None):
 	data = []
 	conversion_factors = {}
 
-	suppliers = frappe.get_list("Supplier", limit=2, pluck='name')
+	suppliers = frappe.get_list("Supplier", pluck='name')
 
 	for supplier in suppliers:
 
@@ -143,9 +143,6 @@ def execute(filters: Optional[StockLevelsByLocationSupplier] = None):
 
 				data.append(report_data)
 
-
-		print("qty",qty)
-		print("supplier_qty",supplier_qty)
 		# add supplier qty subtotal
 		report_data = {
 			"warehouse": "",
@@ -165,6 +162,8 @@ def execute(filters: Optional[StockLevelsByLocationSupplier] = None):
 			"bal_qty": ""
 		}
 		data.append(report_data)
+
+		total = total + supplier_qty
 		
 	# add total qty
 	report_data = {

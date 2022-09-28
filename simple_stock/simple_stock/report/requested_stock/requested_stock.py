@@ -36,6 +36,7 @@ def validate_filters(filters):
 def get_data(filters):
 	mr = frappe.qb.DocType("Material Request")
 	mr_item = frappe.qb.DocType("Material Request Item")
+	item_reorder = frappe.qb.DocType("Item Reorder")
 
 	query = (
 		frappe.qb.from_(mr)
@@ -98,6 +99,19 @@ def update_qty_columns(row_to_update, data_row):
 	fields = ["qty", "ordered_qty", "received_qty", "qty_to_receive", "qty_to_order"]
 	for field in fields:
 		row_to_update[field] += flt(data_row[field])
+
+
+def get_item_reorder_details(items):
+	item_reorder_details = frappe._dict()
+
+	if items:
+		item_reorder_details = frappe.get_all(
+			"Item Reorder",
+			["parent", "warehouse", "warehouse_reorder_qty", "warehouse_reorder_level"],
+			filters={"parent": ("in", items)},
+		)
+
+	return dict((d.parent + d.warehouse, d) for d in item_reorder_details)
 
 
 def prepare_data(data, filters):

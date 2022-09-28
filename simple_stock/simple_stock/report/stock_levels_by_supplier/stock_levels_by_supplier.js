@@ -93,4 +93,4 @@ frappe.query_reports["Stock Levels By Supplier"] = {
 	}
 };
 
-erpnext.utils.add_inventory_dimensions('Stock Levels By Location', 8);
+erpnext.utils.add_inventory_dimensions('Stock Levels By Supplier', 8);

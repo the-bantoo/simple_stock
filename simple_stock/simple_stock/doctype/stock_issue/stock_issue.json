@@ -124,8 +124,6 @@
   {
    "fieldname": "to_warehouse",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Destination Warehouse",
    "no_copy": 1,
    "oldfieldname": "to_warehouse",
@@ -666,6 +664,8 @@
   {
    "fieldname": "area_of_application",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Area of Application",
    "options": "Area of Application",
    "reqd": 1
@@ -679,7 +679,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-23 15:29:52.992878",
+ "modified": "2022-09-27 12:16:03.864196",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Stock Issue",
