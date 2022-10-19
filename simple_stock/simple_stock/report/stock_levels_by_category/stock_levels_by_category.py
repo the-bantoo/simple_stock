@@ -158,27 +158,27 @@ def get_columns(filters: StockLevelsByCategoryFilter):
 				"fieldname": "item_group",
 				"fieldtype": "Link",
 				"options": "Item Group",
-				"width": 150,
+				"width": 200,
 			},
 			{
 				"label": _("Item"),
 				"fieldname": "item_code",
 				"fieldtype": "Link",
 				"options": "Item",
-				"width": 200,
+				"width": 300,
 			},
 			{
 				"label": _("Unit"),
 				"fieldname": "stock_uom",
 				"fieldtype": "Link",
 				"options": "UOM",
-				"width": 60,
+				"width": 100,
 			},
 			{
 				"label": _("Balance"),
 				"fieldname": "bal_qty",
 				"fieldtype": "Float",
-				"width": 105,
+				"width": 00,
 				"convertible": "qty",
 			},
 			{
@@ -192,7 +192,7 @@ def get_columns(filters: StockLevelsByCategoryFilter):
 				"label": _("Price"),
 				"fieldname": "val_rate",
 				"fieldtype": "Currency",
-				"width": 90,
+				"width": 100,
 				"convertible": "rate",
 				"options": "currency",
 			},
@@ -201,25 +201,8 @@ def get_columns(filters: StockLevelsByCategoryFilter):
 				"fieldname": "warehouse",
 				"fieldtype": "Link",
 				"options": "Warehouse",
-				"width": 135,
-			},
-			{
-				"label": _("Reorder Level"),
-				"fieldname": "reorder_level",
-				"fieldtype": "Float",
-				"width": 100,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Reorder Qty"),
-				"fieldname": "reorder_qty",
-				"fieldtype": "Float",
-				"width": 100,
-				"convertible": "qty",
-			},
-			{"label": _("Avg Age"), "fieldname": "average_age", "width": 80},
-			{"label": _("Earliest Age"), "fieldname": "earliest_age", "width": 100},
-			{"label": _("Latest Age"), "fieldname": "latest_age", "width": 100},
+				"width": 200,
+			}
 		]
 
 	return columns
