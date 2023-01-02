@@ -269,8 +269,8 @@ def get_stock_ledger_entries(filters: StockLevelsByCategoryFilter, items: List[s
 		#.orderby(sle.warehouse)
 		#.orderby(sle.item_code)
 		
-		#.orderby(CombineDatetime(sle.posting_date, sle.posting_time))
-		#.orderby(sle.actual_qty)
+		.orderby(CombineDatetime(sle.posting_date, sle.posting_time))
+		.orderby(sle.actual_qty)
 	)
 
 	inventory_dimension_fields = get_inventory_dimension_fields()
