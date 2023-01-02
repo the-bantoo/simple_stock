@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2022-09-27 21:54:46.276015",
+ "modified": "2022-10-31 16:06:57.159726",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Stock Usage By Employee",
@@ -28,6 +28,9 @@
   },
   {
    "role": "Stock Manager"
+  },
+  {
+   "role": "Executive"
   }
  ]
 }

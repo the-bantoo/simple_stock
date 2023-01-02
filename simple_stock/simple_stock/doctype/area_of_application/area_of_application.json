@@ -22,7 +22,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-23 14:15:11.099266",
+ "modified": "2022-10-31 14:51:29.792943",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Area of Application",
@@ -51,6 +51,11 @@
    "report": 1,
    "role": "Stock User",
    "share": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Executive"
   }
  ],
  "quick_entry": 1,

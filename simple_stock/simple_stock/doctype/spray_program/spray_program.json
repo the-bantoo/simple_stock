@@ -54,7 +54,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-24 17:43:49.128976",
+ "modified": "2022-10-31 15:42:13.213320",
  "modified_by": "Administrator",
  "module": "Simple Stock",
  "name": "Spray Program",
@@ -84,6 +84,11 @@
    "role": "Stock User",
    "share": 1,
    "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Executive"
   }
  ],
  "quick_entry": 1,
